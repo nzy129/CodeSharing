@@ -1,8 +1,9 @@
 % RECOMPUTE THE MARGIN
-i=4;
-test=productsall(ic==i,:);
-nestp=0;
-   t_codeshare_m=t_codeshare(ic==i);
+% Draft in 5.24.2022
+i=4;%test market index 4
+test=productsall(ic==i,:); % test market sample
+%nestp=0; % test nest parameter
+    t_codeshare_m=t_codeshare(ic==i);
     online_m=online(ic==i);
     ti_m=ti(ic==i);%ticketing carrier   
     ti_nc=ti_m(t_codeshare_m==1);
@@ -19,7 +20,7 @@ nestp=0;
     s_nc=s_m(t_codeshare_m==1);
     pr1000_nc=pr1000_m(index_have_margin);
     %nestp=0;
-    %nestp=betan(end);
+    nestp=betan(end);
     delta_nest_m=delta(ic==i)-nestp*log(within);
     Dg=sum(exp(delta_nest_m/(1-nestp)));
     
@@ -38,7 +39,7 @@ nestp=0;
     dsddown_j_j_m=zeros(J,J,J);
     dsddown_j_j_m(bsxfun(@plus,[1:J+1:J*J]',[0:J-1]*J*J))=1/(1-nestp)*dsdd;
     
-    dsdp2=betan(1)^2*(dsdd2_1+dsdd2_2+dsdd2_3+dsddown_j_j_m);
+    dsdp2=betan(1)^2*(dsdd2_1+dsdd2_2+dsdd2_3+dsddown_j_j_m); %second derivative of market share with respect to price
 
 %{
 %wrong previous formula
@@ -68,7 +69,7 @@ nestp=0;
     G=dsdp_nest{i}'+squeeze(sum(T3.*dsdp2.*downmarkup_m,1)) + T.*dsdp_nest{i} ;
     H=T.*dsdp_nest{i};
     dudd_test=G\H;
-    dudd=G\H;
+    dudd=G\H;  %price pass-through effect
 
 
 
