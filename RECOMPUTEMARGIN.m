@@ -68,8 +68,9 @@ test=productsall(ic==i,:); % test market sample
     downmarkup_n(ic==i)=downmarkup_m;
     G=dsdp_nest{i}'+squeeze(sum(T3.*dsdp2.*downmarkup_m,1)) + T.*dsdp_nest{i} ;
     H=T.*dsdp_nest{i};
-    dudd_test=G\H;
-    dudd=G\H;  %price pass-through effect du: upstream, dd downstream
+    dddu_test=G\H;
+    dddu=G\H;  %price pass-through effect du: upstream, dd downstream
+    %upstream sale to price derivative dsdu = dddu'*dsdp
 
 
 
