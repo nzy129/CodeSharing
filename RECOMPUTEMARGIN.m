@@ -72,8 +72,24 @@ test=productsall(ic==i,:); % test market sample
     dddu=G\H;  %price pass-through effect du: upstream, dd downstream
     %upstream sale to price derivative dsdu = dddu'*dsdp
 
-
-
+    
+    op_m=op(ic==i);%operating carrier  
+    op_nc=op_m(index_have_margin);
+    
+    T_op=1*(op_m==op_m');%ownership matrix   
+    T_op_nc=1*(op_nc==op_nc');
+    dsdp_u=(dudd'*dsdp_nest{i});%the first derivative of market share with respect to upstream pricing after accounting for price pass-through
+    Omega_u_m=T_op_nc.*dsdp_u(index_have_margin,index_have_margin);%upstream firm's ownership matrix
+    
+    %Upstream markup   
+    upmarkup_m=-Omega_u_m\s_nc;
+    upmarkup_n3(ic==i&t_codeshare==1&integrated==1)=upmarkup_m; 
+    
+    % This gives upstream markup given the cases that the set of upstream firm and down stream firms are totally two difrent sets or F_u intersect F_d = None. 
+    % Next step is recomputing the markup given horizontal & vetical competition at the same time. 
+    
+    
+    
 
 
 
